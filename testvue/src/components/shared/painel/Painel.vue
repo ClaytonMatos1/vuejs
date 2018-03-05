@@ -1,14 +1,22 @@
 <template>
     <div class="painel">
-        <h2 class="painel-title">{{ image }}</h2>
-        <slot class="painel-content">
-        </slot>
+        <h2 class="painel-title" @dblclick="visible = !visible">{{ image }}</h2>
+        <transition name="painel-fade">
+            <div class="painel-content" v-show="visible">
+                <slot></slot>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
 export default {
-    props : ['image']
+    props : ['image'],
+    data() {
+        return {
+            visible : true
+        }
+    }
 }
 </script>
 
@@ -36,5 +44,13 @@ export default {
 
     * {
         box-shadow: 5px 5px 5px;
+    }
+
+    .painel-fade-enter, .painel-fade-leave-active {
+        opacity: 0;
+    }
+
+    .painel-fade-enter-active, .painel-fade-leave-active {
+        transition: opacity .4s;
     }
 </style>

@@ -1,58 +1,40 @@
 <template>
     <div class="principal">
-        <h1 class="center">{{ title }}</h1>
-        <ul class="list-images">
-            <li class="list-images-item" v-for="image of images">
-                <meu-painel :image="image.titulo">
-                    <img class="image-responsive" :src="image.url" :alt="image.title">
-                </meu-painel>
-            </li>
-        </ul>
+        <meu-menu :routes="routes"></meu-menu>
+
+        <transition name="page-fade">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
 <script>
-import Painel from "./components/shared/painel/Painel.vue";
+import { routes } from './routes';
+import Menu from './components/shared/menu/Menu.vue';
 export default {
     components : {
-        'meu-painel' : Painel
+        'meu-menu' : Menu
     },
-
-    data(){
+    data() {
         return {
-            title : 'Fotos',
-            images : []
+            routes
         }
-    },
-
-    created() {
-        this.$http.get('//localhost:3000/v1/fotos')
-            .then(res => res.json())
-            .then(images => this.images = images, err => console.log(err));
     }
 }
 </script>
 
 <style>
-    .corpo {
+    .principal {
         font-family: Helvetica, sans-serif;
-        width: 96%;
+        width: 100%;
         margin: 0 auto;
     }
 
-    .center {
-        text-align: center;
+    .page-fade-enter, .page-fade-leave-active {
+        opacity: 0;
     }
 
-    .list-images {
-        list-style: none;
-    }
-
-    .list-images .list-images-item {
-        display: inline-block;
-    }
-
-    .image-responsive {
-        width: 100%;
+    .page-fade-enter-active, .page-fade-leave-active {
+        transition: opacity .2s;
     }
 </style>
