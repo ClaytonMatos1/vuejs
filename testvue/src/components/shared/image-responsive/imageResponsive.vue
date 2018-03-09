@@ -6,7 +6,6 @@
     export default {
         props : ['url', 'title']
     }
-
 </script>
 
 <style scoped>
