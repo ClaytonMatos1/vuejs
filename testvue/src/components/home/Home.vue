@@ -5,7 +5,7 @@
         <ul class="list-images">
             <li class="list-images-item" v-for="image of imagesFilter">
                 <meu-painel :image="image.titulo">
-                    <image-responsive :url="image.url" :title="image.title" />
+                    <image-responsive :url="image.url" :title="image.title" v-meu-transform:scale.animate="1.2" />
                     <botao-personalizado label="Remover" type="button" class="button" styleButton="danger" :confirmation="true" @clickButton="remove(image)" />
                 </meu-painel>
             </li>
@@ -17,11 +17,16 @@
 import Painel from "../shared/painel/Painel.vue";
 import ImageResponsive from "../shared/image-responsive/ImageResponsive.vue";
 import Button from "../shared/button/Button.vue";
+import transform from "../../directives/Transform";
 export default {
     components : {
         'meu-painel' : Painel,
         'image-responsive' : ImageResponsive,
         'botao-personalizado' : Button
+    },
+
+    directives : {
+        'meu-transform' : transform
     },
 
     data(){
