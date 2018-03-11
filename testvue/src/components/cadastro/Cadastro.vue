@@ -3,6 +3,9 @@
         <h1 class="center">Cadastro</h1>
         <h2 class="center">{{ image.titulo }}</h2>
 
+        <h2 class="center" v-if="image._id">Alterando</h2>
+        <h2 class="center" v-else>Incluindo</h2>
+
         <form @submit.prevent="save()">
             <div class="control">
                 <label for="titulo">TÍTULO</label>
@@ -22,7 +25,7 @@
 
             <div class="center">
                 <botao-personalizado label="GRAVAR" type="submit"/>
-                <router-link to="/"><botao-personalizado label="VOLTAR" type="button"/></router-link>
+                <router-link :to="{ name : 'home' }"><botao-personalizado label="VOLTAR" type="button"/></router-link>
             </div>
 
         </form>
@@ -33,6 +36,7 @@
 import ImageResponsive from '../shared/image-responsive/ImageResponsive.vue'
 import Button from '../shared/button/Button.vue';
 import Image from '../../model/image/Image';
+import ImageService from "../../domain/image/ImageService";
 
 export default {
     components: {
@@ -42,14 +46,31 @@ export default {
 
     data() {
         return {
-            image : new Image()
+            image : new Image(),
+            id : this.$route.params.id
         }
     },
 
     methods : {
         save() {
-            this.$http.post('http://localhost:3000/v1/fotos', this.image)
-                .then(() => this.image = new Image(), err => console.log(err));
+            this.service
+                .save(this.image)
+                .then(() => {
+                    if (this.id) {
+                        this.$router.push({ name : 'home' });
+                    }
+                    this.image = new Image();
+                }, err => console.log(err));
+        }
+    },
+
+    created() {
+        this.service = new ImageService(this.$resource);
+
+        if (this.id) {
+            this.service
+                .search(this.id)
+                .then(image => this.image = image);
         }
     }
 }
