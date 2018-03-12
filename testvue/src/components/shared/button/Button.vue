@@ -43,22 +43,5 @@
 </script>
 
 <style scoped>
-    .button {
-        display: inline-block;
-        padding: 10px;
-        border-radius: 3px;
-        margin: 10px;
-        font-size: 1.2em;
-        cursor: pointer;
-    }
-
-    .button-danger {
-        background: firebrick;
-        color: white;
-    }
-
-    .button-default {
-        background: darkcyan;
-        color: white;
-    }
+    @import './button.css';
 </style>
