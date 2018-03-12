@@ -9,12 +9,14 @@
         <form @submit.prevent="save()">
             <div class="control">
                 <label for="titulo">TÍTULO</label>
-                <input id="titulo" v-model.lazy="image.titulo" autocomplete="off">
+                <input id="titulo" name="titulo" v-model="image.titulo" autocomplete="off" v-validate data-vv-rules="required|min:3|max:30" data-vv-as="título">
+                <span class="error" v-show="errors.has('titulo')">{{ errors.first('titulo') }}</span>
             </div>
 
             <div class="control">
                 <label for="url">URL</label>
-                <input id="url" v-model.lazy="image.url" autocomplete="off">
+                <input id="url" name="url" v-model="image.url" autocomplete="off" v-validate data-vv-rules="required" data-vv-as="URL">
+                <span class="error" v-show="errors.has('url')">{{ errors.first('url') }}</span>
                 <image-responsive v-show="image.url" :url="image.url" :title="image.titulo" />
             </div>
 
@@ -53,14 +55,20 @@ export default {
 
     methods : {
         save() {
-            this.service
-                .save(this.image)
-                .then(() => {
-                    if (this.id) {
-                        this.$router.push({ name : 'home' });
+            this.$validator
+                .validateAll()
+                .then(success => {
+                    if (success) {
+                        this.service
+                            .save(this.image)
+                            .then(() => {
+                                if (this.id) {
+                                    this.$router.push({ name : 'home' });
+                                }
+                                this.image = new Image();
+                            }, err => console.log(err));
                     }
-                    this.image = new Image();
-                }, err => console.log(err));
+                });
         }
     },
 
@@ -95,5 +103,9 @@ export default {
         width: 100%;
         font-size: inherit;
         border-radius: 5px
+    }
+
+    .error {
+        color: red;
     }
 </style>

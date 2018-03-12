@@ -31,6 +31,7 @@ export default {
         height: 100%;
         vertical-align: top;
         text-align: center;
+        overflow: hidden;
     }
 
     .painel .painel-title {
