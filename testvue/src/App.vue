@@ -1,5 +1,5 @@
 <template>
-    <div class="principal">
+    <div class="container">
         <meu-menu :routes="routes"></meu-menu>
 
         <transition name="page-fade">
@@ -24,12 +24,6 @@ export default {
 </script>
 
 <style>
-    .principal {
-        font-family: Helvetica, sans-serif;
-        width: 100%;
-        margin: 0 auto;
-    }
-
     .page-fade-enter, .page-fade-leave-active {
         opacity: 0;
     }

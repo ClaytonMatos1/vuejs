@@ -4,35 +4,26 @@
             <h1 class="center">{{ title }}</h1>
         </div>
         <p class="center" v-show="mensagem">{{ mensagem }}</p>
-        <input type="search" class="filter" @input="filter = $event.target.value" placeholder="Filtre por parte do título" name="search">
-        <ul class="list-images">
-            <li class="list-images-item" v-for="image of imagesFilter">
-                <meu-painel :image="image.titulo">
-                    <image-responsive :url="image.url" :title="image.title" v-meu-transform:scale.animate="1.2" />
-                    <router-link :to="{ name : 'update', params : { id : image._id } }"><botao-personalizado label="Alterar" type="button" class="button" /></router-link>
-                    <botao-personalizado label="Remover" type="button" class="button" styleButton="danger" :confirmation="true" @clickButton="remove(image)" />
+        <input type="search" class="form-control" @input="filter = $event.target.value" placeholder="Filtre por parte do título" name="search">
+        <div class="row">
+            <div class="col-sm-6 col-md-4" v-for="image of imagesFilter">
+                <meu-painel :titulo="image.titulo" :url="image.url" :descricao="image.descricao || 'Sem descricao'">
+                    <p><router-link :to="{ name : 'update', params : { id : image._id } }"><botao-personalizado label="Alterar" type="button" class="button" /></router-link> <botao-personalizado label="Remover" type="button" class="btn" styleButton="danger" :confirmation="true" @clickButton="remove(image)" /></p>
                 </meu-painel>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Painel from "../shared/painel/Painel.vue";
-import ImageResponsive from "../shared/image-responsive/ImageResponsive.vue";
 import Button from "../shared/button/Button.vue";
-import transform from "../../directives/Transform";
 import ImageService from "../../domain/image/ImageService";
 
 export default {
     components : {
         'meu-painel' : Painel,
-        'image-responsive' : ImageResponsive,
         'botao-personalizado' : Button
-    },
-
-    directives : {
-        'meu-transform' : transform
     },
 
     data(){
@@ -89,9 +80,7 @@ export default {
         display: inline-block;
     }
 
-    .filter {
-        display: block;
-        width: 80%;
-        margin: 80px 0 0 80px;
+    .form-control {
+        margin-bottom: 15px;
     }
 </style>

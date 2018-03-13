@@ -1,17 +1,29 @@
 <template>
-    <div class="painel">
-        <h2 class="painel-title" @dblclick="visible = !visible">{{ image }}</h2>
-        <transition name="painel-fade">
-            <div class="painel-content" v-show="visible">
-                <slot></slot>
-            </div>
-        </transition>
+    <div class="thumbnail">
+        <image-responsive :url="url" :title="titulo" v-meu-transform:scale.animate="1.2" />
+        <div class="caption">
+            <h3>{{ titulo }}</h3>
+            <p>{{ descricao }}</p>
+            <slot></slot>
+        </div>
     </div>
 </template>
 
 <script>
+import ImageResponsive from "../image-responsive/ImageResponsive.vue";
+import transform from "../../../directives/Transform";
+
 export default {
-    props : ['image'],
+    props : ['titulo', 'url', 'descricao'],
+
+    components : {
+        'image-responsive' : ImageResponsive
+    },
+
+    directives : {
+        'meu-transform' : transform
+    },
+
     data() {
         return {
             visible : true
@@ -21,36 +33,9 @@ export default {
 </script>
 
 <style scoped>
-    .painel {
-        padding: 0 auto;
-        border: solid 2px grey;
-        display: inline-block;
-        margin: 5px;
-        box-shadow: 5px 5px 10px grey;
-        width: 200px;
-        height: 100%;
-        vertical-align: top;
-        text-align: center;
+    .thumbnail {
         overflow: hidden;
     }
-
-    .painel .painel-title {
-        text-align: center;
-        border: solid 2px;
-        background: lightblue;
-        margin: 0 0 15px 0;
-        padding: 10px;
-        text-transform: uppercase;
-    }
-
-    .painel-content {
-        overflow: hidden;
-    }
-
-    * {
-        box-shadow: 5px 5px 5px;
-    }
-
     .painel-fade-enter, .painel-fade-leave-active {
         opacity: 0;
     }

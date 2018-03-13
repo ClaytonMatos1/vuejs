@@ -1,5 +1,5 @@
 <template>
-    <img class="image-responsive" :src="url" :alt="title">
+    <img :src="url" :alt="title">
 </template>
 
 <script>

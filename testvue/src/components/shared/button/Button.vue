@@ -1,5 +1,5 @@
 <template>
-    <button :class="classButton" :type="type" @click="propagation()">{{ label }}</button>
+    <button :class="classButton" :role="type" @click="propagation()">{{ label }}</button>
 </template>
 
 <script>
@@ -35,8 +35,8 @@
         },
         computed : {
             classButton() {
-                if (this.styleButton == 'danger') return 'button-danger';
-                return 'button-default';
+                if (this.styleButton == 'danger') return 'btn-danger';
+                return 'btn-primary';
             }
         }
     }
