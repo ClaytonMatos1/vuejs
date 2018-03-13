@@ -1,10 +1,8 @@
 <template>
-    <nav>
-        <ul>
-            <li v-for="route in routes">
-                <router-link :to="route.path ? route.path : '/'" title="Home">{{ route.title }}</router-link>
-            </li>
-        </ul>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <router-link v-for="route in routes" class="navbar-brand" :to="route.path ? route.path : '/'" :title="route.title">{{ route.title }}</router-link>
+        </div>
     </nav>
 </template>
 

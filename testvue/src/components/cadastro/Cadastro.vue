@@ -1,10 +1,11 @@
 <template>
     <div>
-        <h1 class="center">Cadastro</h1>
-        <h2 class="center">{{ image.titulo }}</h2>
-
-        <h2 class="center" v-if="image._id">Alterando</h2>
-        <h2 class="center" v-else>Incluindo</h2>
+        <div class="page-header">
+            <h1 class="center">Cadastro</h1>
+            <h2 class="center" v-if="image._id">Alterando</h2>
+            <h2 class="center" v-else>Incluindo</h2>
+            <h2 class="center">{{ image.titulo }}</h2>
+        </div>
 
         <form @submit.prevent="save()">
             <div class="control">
@@ -29,7 +30,6 @@
                 <botao-personalizado label="GRAVAR" type="submit"/>
                 <router-link :to="{ name : 'home' }"><botao-personalizado label="VOLTAR" type="button"/></router-link>
             </div>
-
         </form>
     </div>
 </template>

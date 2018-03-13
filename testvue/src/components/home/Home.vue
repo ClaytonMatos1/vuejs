@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1 class="center">{{ title }}</h1>
+        <div class="page-header">
+            <h1 class="center">{{ title }}</h1>
+        </div>
         <p class="center" v-show="mensagem">{{ mensagem }}</p>
         <input type="search" class="filter" @input="filter = $event.target.value" placeholder="Filtre por parte do título" name="search">
         <ul class="list-images">
